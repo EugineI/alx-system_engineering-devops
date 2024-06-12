@@ -1,2 +1,2 @@
 #!/bin/bash
-file_type=$(sudo -u root file /tmp/iamafile)
+file /tmp/iamafile 
