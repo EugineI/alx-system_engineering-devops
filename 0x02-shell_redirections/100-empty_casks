@@ -1,2 +1,2 @@
 #!/bin/bash
-find . \( -type d -o -type f \) -empty -exec sh -c 'echo "${0##*/}"' {} \;
+find . -type d -empty -execdir echo %f \; -o -type f -empty -execdir echo %f \;
