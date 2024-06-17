@@ -1,2 +1,2 @@
 #!/bin/bash
-awk '{counts[$1]++} END {for (ip in counts) print counts[ip], ip}' | sort -nr | head -n 11
+cut -f5 /path/to/log/file | sort | uniq -c | sort -nr | head -n 11
