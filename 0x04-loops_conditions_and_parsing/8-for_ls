@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #displays content of current directory
 file1=$(pwd)
-for i in $(ls "$file1"); do
-	echo "$i"
+for i in "$file1"/*; do
+	file=$(basename "$i")
+	echo "$file"
 done

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #use while to display message 10 times
-let "i = 0"
-while [ $i -lt 10 ]; do
+i=0
+while (( i < 10 )); do
 	echo "Best School"
 	((i++))
 done
