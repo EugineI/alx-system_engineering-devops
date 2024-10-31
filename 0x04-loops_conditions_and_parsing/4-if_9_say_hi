@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#displays message 10 times and an additional message after 9th time
+let "i = 1"
+while [ $i -le 10 ]; do
+	if ((i == 9)); then
+		echo "Best School"
+		echo "Hi"
+	else
+		echo "Best School"
+	fi
+	((i++))
+done
