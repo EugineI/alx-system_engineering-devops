@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#displays content of current directory
 file1=$(pwd)
 for i in $(ls "$file1"); do
 	echo "$i"
