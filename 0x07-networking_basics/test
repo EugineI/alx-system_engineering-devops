@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "File name is" $0
+echo "first arg. is" $1
