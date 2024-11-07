@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# configures server
+if ["$EUID" -ne 0]; then
+	echo "Please run as root"
+	exit 1
+fi
+localhost = "127.0.0.2 localhost"
+facebook = "8.8.8.8 facebook.com"
+if grep -q "127.0.0.1 localhost" /etc/hosts; then
+	sed -i 's/127.0.0.1 localhost/127.0.0.2 localhost/' /etc/hosts
+else
+	echo "$FACEBOOK_ENTRY" >> /etc/hosts
+fi
+echo "Configuration updated. localhost now resolves to 127.0.0.2 and facebook.com resolves to 8.8.8.8"
