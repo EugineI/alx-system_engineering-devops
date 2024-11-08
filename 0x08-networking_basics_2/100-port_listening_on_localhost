@@ -4,5 +4,4 @@ PORT=98
 if ! command -v nc &> /dev/null; then
 	exit 1
 fi
-echo "listening on port $PORT..."
 nc -lk 127.0.0.2 $PORT
