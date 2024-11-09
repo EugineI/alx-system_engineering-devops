@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# listening on port 98
+PORT=98
+if ! command -v nc &> /dev/null; then
+	exit 1
+fi
+nc -lk 127.0.0.1 $PORT
