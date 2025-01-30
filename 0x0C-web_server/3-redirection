@@ -3,6 +3,8 @@
 sudo apt update -y
 sudo apt install -y nginx
 
+sudo systemctl enable nginx
+
 cat << EOF | sudo tee /etc/nginx/sites-available/default
 server {
 	listen 80;
@@ -12,8 +14,10 @@ server {
 		return 301 https://www.youtube.com/watch?v=QH2-TGU1wu4;
 	}
 
-	location /var/www/html;
+	location / {
+	root /var/www/html;
 	index index.html;
+	}
 }
 EOF
-sudo systemctl restart nginx
+sudo nginx -t && sudo systemctl restart nginx
