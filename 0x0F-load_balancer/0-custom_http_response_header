@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 #configure web-02
-sudo apt update
+sudo apt update -y
 sudo apt install -y nginx
 
-HOSTNAME=$(hostname)
+sudo systemctl enable nginx
+sudo systemctl start nginx
 
 CONFIG_FILE="/etc/nginx/sites-available/default"
-sudo sed -i '/server_name _;/a \tadd_header X-Served-By "$HOSTNAME";' $CONFIG_FILE
+HEADER_DIRECTIVE="add_header X-Served-By \"$(hostname)\";"
+
+if ! grep -q "X-Served-by" "$CONFIG_FILE"; then
+	sudo sed -i "/server_name _;/a \\t$HEADER_DIRECTIVE" "$CONFIG_FILE"
+fi
 
 sudo nginx -t && sudo systemctl restart nginx
