@@ -12,3 +12,7 @@ systemctl restart nginx
 
 systemctl enable nginx
 HTTP_CODE=$(curl -o /dev/null -s -w "%{http_code}" http://localhost)
+if [ "$HTTP_CODE" -ne 200 ]; then
+    echo "Error: Nginx is not returning HTTP 200"
+    exit 1
+fi
