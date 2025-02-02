@@ -11,3 +11,4 @@ sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/g' /etc/nginx/sites
 systemctl restart nginx
 
 systemctl enable nginx
+HTTP_CODE=$(curl -o /dev/null -s -w "%{http_code}" http://localhost)
