@@ -13,4 +13,7 @@ chown -R nginx:nginx /var/www/html
 chown -R nginx:nginx /var/log/nginx
 chown -R nginx:nginx /var/lib/nginx
 
+pkill -u root -f nginx
+sudo -u nginx nginx
+
 service nginx restart
