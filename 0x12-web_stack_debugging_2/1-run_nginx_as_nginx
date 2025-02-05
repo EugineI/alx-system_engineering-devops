@@ -1,21 +1,16 @@
 #!/usr/bin/env bash
-# run nginxs as nginx
-if ! id -u nginx > /dev/null 2>&1; then
-	echo "Creating nginx user..."
-	useradd -r -d /var/www -s /sbin/nologin nginx
-fi
-NGINX_CONF="/etc/nginx/nginx.conf"
+# run nginx as nginx
+dpkg -l | grep -qw nginx || apt-get update && apt-get install -y nginx
 
-if grep -q "^user root;" "$NGINX_CONF"; then
-	echo "Updating Nginx user to nginx..."
-	sudo sed -i 's/^user root;/user nginx;/' "$NGINX_CONF"
-fi
-SITE_CONF="/etc/nginx/sites-available/dafault"
-if [ -f "$SITE_CONF" ]; then
-    echo "Updating Nginx to listen on port 8080..."
-    sudo sed -i 's/listen 80 default_server;/listen 8080 default_server;/' "$SITE_CONF"
-    sudo sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:8080 default_server;/' "$SITE_CONF"
-fi
-echo "Restarting Nginx..."
-nginx -t && systemctl restart nginx
-echo "Nginx is now running as nginx user on port 8080."
+id -u nginx &>/dev/null || useradd -r -d /var/www -s /sbin/nologin nginx
+
+sed -i 's/listen 80 default_server;/listen 8080 default_server;/g' /etc/nginx/sites-available/default
+sed -i 's/listen \[::\]:80 default_server;/listen [::]:8080 default_server;/g' /etc/nginx/sites-available/default
+
+sed -i 's/user .*/user nginx;/g' /etc/nginx/nginx.conf
+
+chown -R nginx:nginx /var/www/html
+chown -R nginx:nginx /var/log/nginx
+chown -R nginx:nginx /var/lib/nginx
+
+service nginx restart
