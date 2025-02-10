@@ -19,7 +19,7 @@ if __name__ == "__main__":
     user_url = f"{base_url}/users/{employee_id}"
     user_response = requests.get(user_url)
     user_data = user_response.json()
-    employee_name = user_data.get("username")
+    employee_name = user_data.get("name")
 
     todos_url = f"{base_url}/todos?userId={employee_id}"
     todos_response = requests.get(todos_url)
