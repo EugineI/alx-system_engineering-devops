@@ -25,10 +25,14 @@ if __name__ == "__main__":
     todos_response = requests.get(todos_url)
 
     todos = todos_response.json()
-    TT = len(todos)
-    done_tasks = [task for task in todos if task.get("completed")]
-    done_task = len(done_tasks)
-
-    print(f"Employee {employee_name} is done with tasks ({done_task}/{TT}):")
-    for task in done_tasks:
-        print(f"\t {task['title']}")
+    tasks_list = []
+    for task in todos:
+        tasks_list.append({
+                "task": task["title"],
+                "completed": task["completed"],
+                "username": employee_name
+                })
+    json_data = {employee_id: tasks_list}
+    filename = f"{employee_id}.json"
+    with open(filename, "w") as json_file:
+        json.dump(json_data, json_file)
