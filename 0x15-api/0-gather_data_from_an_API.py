@@ -6,10 +6,15 @@ import requests
 import sys
 
 if __name__ == "__main__":
-    employee_id = int(sys.argv[1])
-    
+    if len(sys.argv) != 2:
+        sys.exit(1)
+    try:
+        employee_id = int(sys.argv[1])
+    except ValueError:
+        sys.exit(1)
+
     base_url = "https://jsonplaceholder.typicode.com"
-    
+
     user_url = f"{base_url}/users/{employee_id}"
     user_response = requests.get(user_url)
     user_data = user_response.json()
@@ -19,10 +24,10 @@ if __name__ == "__main__":
     todos_response = requests.get(todos_url)
 
     todos = todos_response.json()
-    ttTasks = len(todos)
+    TT = len(todos)
     done_tasks = [task for task in todos if task.get("completed")]
     done_task = len(done_tasks)
 
-    print(f"Employee {employee_name} is done with tasks ({done_task}/{ttTasks}):")
+    print(f"Employee {employee_name} is done with tasks ({done_task}/{TT}):")
     for task in done_tasks:
         print(f"\t {task['title']}")
