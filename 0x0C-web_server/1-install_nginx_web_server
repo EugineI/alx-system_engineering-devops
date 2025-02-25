@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 # this installs and configues nginxs on a fresh ubuntu
-sudo apt update -y
-sudo apt install nginx -y
-echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+apt update -y
+apt install nginx -y
+echo "Hello World!" > /var/www/html/index.html
 
-sudo sed -i 's|root /var/www/html;|root /var/www/html;|' /etc/nginx/sites-available/default
+sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
 
-sudo nginx -t && sudo nginx -s reload
-curl localhost
+nginx -t && nginx -s reload
