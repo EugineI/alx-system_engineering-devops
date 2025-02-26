@@ -1,12 +1,12 @@
 # modules/apache_fix/manifests/init.pp
 class apache_fix {
     package { 'libapache2-mod-php':
-        ensure => installed,
+        ensure  => installed,
     }
 
     file { '/var/www/html/':
-        owner  => 'www-data',
-        group  => 'www-data',
+        owner   => 'www-data',
+        group   => 'www-data',
         recurse => true,
     }
 
@@ -17,7 +17,7 @@ class apache_fix {
     }
 
     service { 'apache2':
-        ensure  => running,
-        enable  => true,
+        ensure => running,
+        enable => true,
     }
 }
