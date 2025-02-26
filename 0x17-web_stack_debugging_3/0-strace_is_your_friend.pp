@@ -1,3 +1,4 @@
+# fixes apache 500 error
 class apache_fix {
     package { 'php':
         ensure => installed,
